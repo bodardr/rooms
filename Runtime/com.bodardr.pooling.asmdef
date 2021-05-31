@@ -1,0 +1,16 @@
+{
+    "name": "com.bodardr.pooling",
+    "rootNamespace": "Bodardr.ObjectPooling",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Editor"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
