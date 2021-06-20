@@ -16,10 +16,7 @@ public class RoomManager : MonoBehaviour
     public static Color primaryColor = new Color(0.28f, 0.75f, 1f, 0.1f);
     public static Color acccentColor = new Color(0f, 0.17f, 0.35f);
 
-    private Grid grid;
-
-    private List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
-    private CinemachineVirtualCamera activeCamera;
+    private static int roomLayer;
 
     [HideInInspector]
     [SerializeField]
@@ -37,7 +34,11 @@ public class RoomManager : MonoBehaviour
     [SerializeField]
     private float maxOrthoSize = 12;
 
-    private static int roomLayer;
+    private CinemachineVirtualCamera activeCamera;
+
+    private List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
+
+    private Grid grid;
 
     public List<Room> Rooms => rooms;
 
@@ -104,7 +105,7 @@ public class RoomManager : MonoBehaviour
     private void InstantiateRoomParent()
     {
         cameras.Clear();
-        
+
         roomParent = new GameObject {name = $"{name} Rooms", layer = roomLayer}.transform;
         roomParent.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
@@ -143,9 +144,9 @@ public class RoomManager : MonoBehaviour
                 grid.cellSize);
         }
 
-        if (cameras.Count > rooms.Count)
-            cameras.RemoveRange(rooms.Count, cameras.Count - rooms.Count);
-        
+        while (cameras.Count > rooms.Count)
+            cameras.RemoveAt(cameras.Count - 1);
+
         for (var i = 0; i < rooms.Count; i++)
         {
             UpdateCamera(cameras[i], rooms[i]);
