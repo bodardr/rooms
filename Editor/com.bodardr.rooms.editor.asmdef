@@ -1,0 +1,21 @@
+{
+    "name": "com.bodardr.rooms.editor",
+    "rootNamespace": "Bodardr.Rooms.Editor",
+    "references": [
+        "GUID:3a9781db4804a9945b9883f3a7c46d45",
+        "GUID:254396046c1021d44b6230d2908b4c93",
+        "GUID:4e622b788ae340239537f6be3048a059",
+        "GUID:dfa5bdae33c0268409f5ee0a9325e3cb"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

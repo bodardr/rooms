@@ -1,8 +1,8 @@
 {
-  "name": "com.bodardr.pooling",
-  "version": "0.0.4",
-  "displayName": "Object Pooling",
-  "description": "Caching GameObjects and other components to reduce lag and overload!",
+  "name": "com.bodardr.rooms",
+  "version": "0.0.1",
+  "displayName": "Room System",
+  "description": "A tilemap room system for camera transitions and respawn mechanics!",
   "unity": "2020.2",
   "dependencies": {},
   "author": {

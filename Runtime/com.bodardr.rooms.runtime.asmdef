@@ -1,11 +1,11 @@
 {
-    "name": "com.bodardr.pooling",
-    "rootNamespace": "Bodardr.ObjectPooling",
-    "references": [],
-    "includePlatforms": [],
-    "excludePlatforms": [
-        "Editor"
+    "name": "com.bodardr.rooms.runtime",
+    "rootNamespace": "Bodardr.Rooms.Runtime",
+    "references": [
+        "GUID:4307f53044263cf4b835bd812fc161a4"
     ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
