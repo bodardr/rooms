@@ -39,11 +39,13 @@ public class RoomManager : MonoBehaviour
     private List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
 
     private Grid grid;
+    private RoomTransitionHandler roomTransitionHandler;
 
     public List<Room> Rooms => rooms;
 
     private void Awake()
     {
+        roomTransitionHandler = GetComponent<RoomTransitionHandler>();
         roomLayer = LayerMask.NameToLayer("Room");
         roomParent = GameObject.Find($"{gameObject.name} Rooms")?.transform;
 
@@ -71,12 +73,14 @@ public class RoomManager : MonoBehaviour
         if (cameras.Count < 1)
             roomParent.GetComponentsInChildren(true, cameras);
 
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+            return;
+#endif
 
-        if (activeCamera)
-            activeCamera.enabled = false;
+        StartCoroutine(roomTransitionHandler.MakeTransition(activeCamera, cameras[nextRoom]));
 
         activeCamera = cameras[nextRoom];
-        activeCamera.enabled = true;
     }
 
     #region EDITOR_PART
@@ -155,14 +159,14 @@ public class RoomManager : MonoBehaviour
 
     private Transform CreateChildRoom(int i)
     {
-        var newChild = new GameObject($"Room {i + 1}", typeof(PolygonCollider2D)) {layer = roomLayer};
+        var newChild = new GameObject($"Room {i + 1}", typeof(PolygonCollider2D)) {layer = roomLayer, tag = "Room"};
         var polygonCollider = newChild.GetComponent<PolygonCollider2D>();
         polygonCollider.isTrigger = true;
         var child = newChild.transform;
         child.SetParent(roomParent);
 
         var cameraGameObject = new GameObject(newChild.name + " Camera", typeof(CinemachineVirtualCamera))
-            {layer = roomLayer};
+            {layer = LayerMask.NameToLayer("Default")};
         cameraGameObject.transform.SetParent(child);
         cameraGameObject.transform.rotation = Quaternion.identity;
 
@@ -189,6 +193,7 @@ public class RoomManager : MonoBehaviour
         var topRight = -halfSize;
         var topLeft = new Vector2(-halfSize.x, halfSize.y);
 
+        polygonCollider.isTrigger = true;
 
         polygonCollider.SetPath(0, new[]
         {
@@ -228,14 +233,17 @@ public class RoomManager : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        guiStyle ??= new GUIStyle
+        if (guiStyle == null)
         {
-            alignment = TextAnchor.MiddleCenter, stretchWidth = true, stretchHeight = true,
-            normal = new GUIStyleState
+            guiStyle = new GUIStyle
             {
-                textColor = acccentColor
-            }
-        };
+                alignment = TextAnchor.MiddleCenter, stretchWidth = true, stretchHeight = true,
+                normal = new GUIStyleState
+                {
+                    textColor = acccentColor
+                }
+            };
+        }
 
         if (!grid)
             grid = gameObject.GetComponent<Grid>();
