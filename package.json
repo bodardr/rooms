@@ -1,6 +1,6 @@
 {
   "name": "com.bodardr.rooms",
-  "version": "0.0.16",
+  "version": "0.0.18",
   "displayName": "Room System",
   "description": "A tilemap room system for camera transitions and respawn mechanics!",
   "unity": "2020.2",
