@@ -6,8 +6,9 @@ using UnityEditor;
 
 #endif
 
+[AddComponentMenu("Room System/Room Manager", 1)]
 [ExecuteAlways]
-[RequireComponent(typeof(Grid))]
+[RequireComponent(typeof(Grid), typeof(RoomTransitionHandler))]
 [DisallowMultipleComponent]
 public class RoomManager : MonoBehaviour
 {
@@ -58,7 +59,7 @@ public class RoomManager : MonoBehaviour
         }
 #else
         if(!roomParent)
-            Debug.LogError("Room parent not assigned!")
+            Debug.LogError("Room parent not assigned!");
 #endif
 
         roomParent.GetComponentsInChildren(true, cameras);
@@ -110,7 +111,7 @@ public class RoomManager : MonoBehaviour
     {
         cameras.Clear();
 
-        roomParent = new GameObject {name = $"{name} Rooms", layer = roomLayer}.transform;
+        roomParent = new GameObject { name = $"{name} Rooms", layer = roomLayer }.transform;
         roomParent.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
@@ -159,14 +160,14 @@ public class RoomManager : MonoBehaviour
 
     private Transform CreateChildRoom(int i)
     {
-        var newChild = new GameObject($"Room {i + 1}", typeof(PolygonCollider2D)) {layer = roomLayer, tag = "Room"};
+        var newChild = new GameObject($"Room {i + 1}", typeof(PolygonCollider2D)) { layer = roomLayer, tag = "Room" };
         var polygonCollider = newChild.GetComponent<PolygonCollider2D>();
         polygonCollider.isTrigger = true;
         var child = newChild.transform;
         child.SetParent(roomParent);
 
         var cameraGameObject = new GameObject(newChild.name + " Camera", typeof(CinemachineVirtualCamera))
-            {layer = LayerMask.NameToLayer("Default")};
+            { layer = LayerMask.NameToLayer("Default") };
         cameraGameObject.transform.SetParent(child);
         cameraGameObject.transform.rotation = Quaternion.identity;
 
@@ -185,7 +186,7 @@ public class RoomManager : MonoBehaviour
 
     private void UpdatePolygonCollider(BoundsInt bounds, PolygonCollider2D polygonCollider, Vector2 cellSize)
     {
-        var halfSize = (Vector3) bounds.size * 0.5f;
+        var halfSize = (Vector3)bounds.size * 0.5f;
 
         var bottomLeft = halfSize;
         var bottomRight = new Vector2(halfSize.x, -halfSize.y);
@@ -248,7 +249,7 @@ public class RoomManager : MonoBehaviour
         if (!grid)
             grid = gameObject.GetComponent<Grid>();
 
-        guiStyle.fontSize = (int) (1500 / SceneView.currentDrawingSceneView.size);
+        guiStyle.fontSize = (int)(1500 / SceneView.currentDrawingSceneView.size);
 
         //Draw currentRooms.
         for (var i = 0; i < rooms.Count; i++)

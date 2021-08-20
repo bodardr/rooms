@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using Cinemachine;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
+[AddComponentMenu("Room System/Room Transition Handler")]
 public class RoomTransitionHandler : MonoBehaviour
 {
     [SerializeField]

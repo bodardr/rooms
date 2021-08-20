@@ -4,8 +4,6 @@ using UnityEditor;
 using UnityEditor.EditorTools;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Bodardr.Rooms.Editor

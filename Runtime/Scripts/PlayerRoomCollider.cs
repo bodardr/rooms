@@ -4,6 +4,7 @@ using UnityEngine;
 
 #endif
 
+[AddComponentMenu("Room System/Player Room Collider")]
 public class PlayerRoomCollider : MonoBehaviour
 {
     private readonly HashSet<int> rooms = new HashSet<int>();
